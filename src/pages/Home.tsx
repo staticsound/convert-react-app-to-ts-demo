@@ -1,11 +1,13 @@
 import React from "react";
-import { fetchNutritionInfo } from "../components/USDA-API/API-caller";
+import {fetchNutritionInfo} from "../components/USDA-API/API-caller";
 
-import { Card, CardText, CardBody, CardTitle } from 'reactstrap';
+import {Card, CardBody, CardText, CardTitle} from 'reactstrap';
 import Cards from "../styles/Cards.module.scss";
+import FoodNutrient from "../components/USDA-API/FoodNutrient";
+import Food from "../components/USDA-API/Food";
 
-const Home:React.FC = () => {
-  const [items, setItems] = React.useState([]);
+const Home: React.FC = () => {
+  const [items, setItems] = React.useState<Food<FoodNutrient>[]>([]);
 
   React.useEffect(() => {
     fetchNutritionInfo()
@@ -15,8 +17,8 @@ const Home:React.FC = () => {
   }, []);
 
   const usdaItems = items.map((item) => (
-      <div key={item.fdcId} style={Cards.spacing}>
-        <Card style={Cards.fixedSize}>
+      <div key={item.fdcId} className={Cards.spacing}>
+        <Card className={Cards.fixedSize}>
           <CardBody>
             <CardTitle>
               {item.description}
@@ -31,7 +33,9 @@ const Home:React.FC = () => {
       </div>
   ));
 
-  return <div className="container"><div className="row">{usdaItems}</div></div>;
+  return <div className="container">
+    <div className="row">{usdaItems}</div>
+  </div>;
 };
 
 export default Home;
