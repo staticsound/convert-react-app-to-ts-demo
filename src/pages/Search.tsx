@@ -1,10 +1,10 @@
 import React from "react";
 import { InputGroup, InputGroupText, Input, Card, CardText, CardBody,
   CardTitle, Button } from 'reactstrap';
-import * as Cards from '../styles/Cards';
+import * as Cards from '../styles/Cards.module.scss';
 import { queryNutritionInfo } from "../components/USDA-API/API-caller";
 
-const Search = () => {
+const Search:React.FC = () => {
   const [items, setItems] = React.useState([]);
   const [query, setQuery] = React.useState('');
 
@@ -24,7 +24,7 @@ const Search = () => {
           </CardTitle>
           <CardText>
             {item.foodNutrients.map((nutrients) => (
-                <div key={nutrients.nutrientId}>{nutrients.nutrientName}: {nutrients.value}</div>
+                <div key={nutrients.nutrientId}>{nutrients.nutrientName}: {nutrients.value} {nutrients.unitName.toLowerCase()}</div>
             ))}
           </CardText>
         </CardBody>
@@ -46,7 +46,7 @@ const Search = () => {
           <InputGroupText>
             <Input onChange={e => setQuery(e.target.value)} placeholder="Search Here..."/>
           </InputGroupText>
-          <Button outline color="primary" onClick={queryFoods}>Find Foods</Button>{' '}
+          <Button outline color="primary" onClick={queryFoods}>Find Foods</Button>
         </InputGroup>
       </div>
       <div className="row">{usdaItems}</div>

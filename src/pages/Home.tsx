@@ -2,9 +2,9 @@ import React from "react";
 import { fetchNutritionInfo } from "../components/USDA-API/API-caller";
 
 import { Card, CardText, CardBody, CardTitle } from 'reactstrap';
-import * as Cards from "../styles/Cards";
+import Cards from "../styles/Cards.module.scss";
 
-const Home = () => {
+const Home:React.FC = () => {
   const [items, setItems] = React.useState([]);
 
   React.useEffect(() => {
