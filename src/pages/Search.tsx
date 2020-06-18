@@ -3,10 +3,10 @@ import {
   Button, Card, CardBody, CardText, CardTitle, Input, InputGroup,
   InputGroupText
 } from 'reactstrap';
-import Cards from '../styles/Cards.module.scss';
-import {queryNutritionInfo} from "../components/USDA-API/API-caller";
-import Food from "../components/USDA-API/Food";
-import DetailedFoodNutrient from "../components/USDA-API/DetailedFoodNutrient";
+import Cards from '../components/FoodItem.module.scss';
+import {queryNutritionInfo} from "../USDA-API/API-caller";
+import Food from "../USDA-API/Food";
+import DetailedFoodNutrient from "../USDA-API/DetailedFoodNutrient";
 
 const Search: React.FC = () => {
   const [items, setItems] = React.useState<Food<DetailedFoodNutrient>[]>([]);

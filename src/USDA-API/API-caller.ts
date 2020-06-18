@@ -1,4 +1,4 @@
-import config from "../../config";
+import config from "../config";
 import axios from "axios";
 import Food from "./Food";
 import FoodNutrient from "./FoodNutrient";
