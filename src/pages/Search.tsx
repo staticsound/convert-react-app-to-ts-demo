@@ -1,12 +1,9 @@
 import React from "react";
-import {
-  Button, Card, CardBody, CardText, CardTitle, Input, InputGroup,
-  InputGroupText
-} from 'reactstrap';
-import Cards from '../components/FoodItem.module.scss';
+import { Button, Input, InputGroup, InputGroupText } from 'reactstrap';
 import {queryNutritionInfo} from "../USDA-API/API-caller";
 import Food from "../USDA-API/Food";
 import DetailedFoodNutrient from "../USDA-API/DetailedFoodNutrient";
+import UsdaItem from "../components/FoodItem";
 
 const Search: React.FC = () => {
   const [items, setItems] = React.useState<Food<DetailedFoodNutrient>[]>([]);
@@ -15,24 +12,6 @@ const Search: React.FC = () => {
   React.useEffect(() => {
     queryFoods('burger')
   }, []);
-
-  const usdaItems = items.map((item) => (
-      <div key={item.fdcId} className={Cards.spacing}>
-        <Card className={Cards.fixedSize}>
-          <CardBody>
-            <CardTitle>
-              {item.description}
-            </CardTitle>
-            <CardText>
-              {item.foodNutrients.map((nutrients) => (
-                  <div
-                      key={nutrients.nutrientId}>{nutrients.nutrientName}: {nutrients.value} {nutrients.unitName.toLowerCase()}</div>
-              ))}
-            </CardText>
-          </CardBody>
-        </Card>
-      </div>
-  ));
 
   const queryFoods = (q: string) => {
     queryNutritionInfo(q)
@@ -51,7 +30,11 @@ const Search: React.FC = () => {
             <Button outline color="primary" onClick={() => queryFoods(query)}>Find Foods</Button>
           </InputGroup>
         </div>
-        <div className="row">{usdaItems}</div>
+        <div className="row">
+          {
+            items.map(item => <UsdaItem item={item}/>)
+          }
+        </div>
       </div>
   );
 };

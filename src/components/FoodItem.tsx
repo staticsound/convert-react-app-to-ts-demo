@@ -1,15 +1,14 @@
-import React from "react";
+import React, {PropsWithChildren} from "react";
 import {Card, CardBody, CardText, CardTitle} from "reactstrap";
 import Food from "../USDA-API/Food";
 import Style from './FoodItem.module.scss';
-import FoodNutrient from "../USDA-API/FoodNutrient";
 
-interface FoodItem {
-  item: Food<FoodNutrient>
+interface FoodItem<T> {
+  item: Food<T>
 }
 
-const FoodItem = ({item}: FoodItem) => {
-
+const FoodItem = <T, >({item}: PropsWithChildren<FoodItem<T>>) => {
+  // For search: <div key={nutrients.nutrientId}>{nutrients.nutrientName}: {nutrients.value} {nutrients.unitName.toLowerCase()}</div>
   return (
       <div key={item.fdcId} className={Style.spacing}>
         <Card className={Style.fixedSize}>
@@ -18,9 +17,9 @@ const FoodItem = ({item}: FoodItem) => {
               {item.description}
             </CardTitle>
             <CardText>
-              {item.foodNutrients.map((nutrients) => (
-                  <div key={nutrients.number}>{nutrients.name}: {nutrients.amount}</div>
-              ))}
+              {/*{item.foodNutrients.map((nutrients) => (*/}
+              {/*    <div key={nutrients.number}>{nutrients.name}: {nutrients.amount}</div>*/}
+              {/*))}*/}
             </CardText>
           </CardBody>
         </Card>
