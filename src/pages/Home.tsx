@@ -1,11 +1,10 @@
 import React from "react";
 import {fetchNutritionInfo} from "../USDA-API/API-caller";
-import FoodNutrient from "../USDA-API/FoodNutrient";
-import Food from "../USDA-API/Food";
-import UsdaItem from "../components/FoodItem";
+import FoodItem from "../components/FoodItem";
+import FoodModel from "../models/FoodModel";
 
 const Home: React.FC = () => {
-  const [items, setItems] = React.useState<Food<FoodNutrient>[]>([]);
+  const [items, setItems] = React.useState<FoodModel[]>([]);
 
   React.useEffect(() => {
     (async () => {
@@ -20,7 +19,7 @@ const Home: React.FC = () => {
   return <div className="container">
     <div className="row">
       {
-        items.map(item => <UsdaItem item={item}/>)
+        items.map(item => <FoodItem item={item}/>)
       }
     </div>
   </div>;

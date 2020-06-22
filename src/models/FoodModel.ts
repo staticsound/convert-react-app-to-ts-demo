@@ -1,13 +1,12 @@
 import {LocalDate} from "js-joda";
+import FoodNutrientModel from "./FoodNutrientModel";
 
-export default interface Food<T> {
+export default interface FoodModel {
   fdcId: number;
   description: string;
   dataType: string;
   publicationDate: LocalDate;
   foodCode: string;
   ndbNumber: string;
-  foodNutrients?: T[];
+  foodNutrients: FoodNutrientModel[];
 }
-
-

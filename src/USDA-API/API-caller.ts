@@ -4,6 +4,8 @@ import Food from "./Food";
 import FoodNutrient from "./FoodNutrient";
 import Page from "./Page";
 import DetailedFoodNutrient from "./DetailedFoodNutrient";
+import FoodMapper from "../models/FoodMapper";
+import FoodModel from "../models/FoodModel";
 
 const defaultParams = {
   format: "json",
@@ -11,7 +13,7 @@ const defaultParams = {
 };
 
 
-export const fetchNutritionInfo = async ():Promise<Food<FoodNutrient>[]> => {
+export const fetchNutritionInfo = async ():Promise<FoodModel[]> => {
   const params = {
     ...defaultParams,
     lt: "f",
@@ -20,7 +22,7 @@ export const fetchNutritionInfo = async ():Promise<Food<FoodNutrient>[]> => {
 
   try {
     const{data} = await axios.get<Food<FoodNutrient>[]>(config.usdaAPIUrl + '/foods/list', {params});
-    return data;
+    return data.map(FoodMapper.fromFoodWithFoodNutrient);
   } catch(e) {
     throw e.response.data;
   }
@@ -30,7 +32,7 @@ interface FoodSearchResponse extends Page{
   foods: Food<DetailedFoodNutrient>[];
 }
 
-export const queryNutritionInfo = async (query: string):Promise<Food<DetailedFoodNutrient>[]> => {
+export const queryNutritionInfo = async (query: string):Promise<FoodModel[]> => {
 
   let body = {
     query,
@@ -45,7 +47,7 @@ export const queryNutritionInfo = async (query: string):Promise<Food<DetailedFoo
 
   try {
     const{data} = await axios.post<FoodSearchResponse>(config.usdaAPIUrl + '/foods/search', body, {params: defaultParams});
-    return data.foods;
+    return data.foods.map(FoodMapper.fromFoodWithDetailedFoodNutrient);
   } catch(e) {
     throw e.response.data;
   }

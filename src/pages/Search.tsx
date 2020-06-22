@@ -1,12 +1,11 @@
 import React from "react";
 import { Button, Input, InputGroup, InputGroupText } from 'reactstrap';
 import {queryNutritionInfo} from "../USDA-API/API-caller";
-import Food from "../USDA-API/Food";
-import DetailedFoodNutrient from "../USDA-API/DetailedFoodNutrient";
-import UsdaItem from "../components/FoodItem";
+import FoodItem from "../components/FoodItem";
+import FoodModel from "../models/FoodModel";
 
 const Search: React.FC = () => {
-  const [items, setItems] = React.useState<Food<DetailedFoodNutrient>[]>([]);
+  const [items, setItems] = React.useState<FoodModel[]>([]);
   const [query, setQuery] = React.useState('');
 
   React.useEffect(() => {
@@ -32,7 +31,7 @@ const Search: React.FC = () => {
         </div>
         <div className="row">
           {
-            items.map(item => <UsdaItem item={item}/>)
+            items.map(item => <FoodItem item={item}/>)
           }
         </div>
       </div>
